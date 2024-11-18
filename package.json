@@ -1,0 +1,28 @@
+{
+  "name": "moby-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start-tauri": "pnpm tauri dev",
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "test:frontend": "vitest"
+  },
+  "dependencies": {
+    "@joint/plus": "file:joint-plus.tgz",
+    "@vue/test-utils": "^2.4.6",
+    "vue": "^3.5.12"
+    
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "1",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "jsdom": "^25.0.1",
+    "typescript": "~5.6.2",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.5",
+    "vue-tsc": "^2.1.8"
+  }
+}
