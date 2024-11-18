@@ -14,6 +14,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
+    setupFiles: './setupTest.ts'
   },
   build: {
     // Tauri uses Chromium on Windows and WebKit on macOS and Linux
@@ -23,5 +24,4 @@ export default defineConfig({
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_DEBUG,
   },
-  
 })
