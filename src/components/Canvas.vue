@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { dia, shapes, ui, format, util } from '@joint/plus';
+import { onMounted, useTemplateRef } from 'vue'
+import { dia, shapes, ui, format, util } from '@joint/plus/joint-plus.js';
 import '@joint/plus/joint-plus.css';
+
+const paperRef = useTemplateRef('paper')
+const stencilRef = useTemplateRef('stencil')
+const toolbarRef = useTemplateRef('toolbar')
+const inspectorRef = useTemplateRef('inspector')
 
 onMounted(() => {
   // create paper scroller
@@ -23,7 +28,8 @@ onMounted(() => {
     paper: paper,
     scrollWhileDragging: true
   });
-  document.getElementById('paper').appendChild(paperScroller.render().el);
+  // document.getElementById('paper').appendChild(paperScroller.render().el);
+  paperRef.value.appendChild(paperScroller.render().el);
 
   // implement pinch interaction
   paper.on('paper:pinch', (_evt, ox, oy, scale) => {
@@ -76,7 +82,8 @@ onMounted(() => {
     dropAnimation: true
   });
   stencil.render();
-  document.getElementById('stencil').appendChild(stencil.el);
+  // document.getElementById('stencil').appendChild(stencil.el);
+  stencilRef.value.appendChild(stencil.el);
 
   const elements = [
     {
@@ -159,7 +166,8 @@ onMounted(() => {
     }
   });
   toolbar.render();
-  document.getElementById('toolbar').appendChild(toolbar.el);
+  //document.getElementById('toolbar').appendChild(toolbar.el);
+  toolbarRef.value.appendChild(toolbar.el);
 
   toolbar.on('json:pointerclick', () => {
     const str = JSON.stringify(graph.toJSON());
@@ -185,7 +193,7 @@ onMounted(() => {
   function openInspector(cell) {
     closeInspector(); // close inspector if currently open
 
-    ui.Inspector.create('#inspector', {
+    ui.Inspector.create(inspectorRef.value, {
       cell: cell,
       inputs: getInspectorConfig(cell)
     });
@@ -262,10 +270,10 @@ onMounted(() => {
 <template>
   <!-- <HelloWorld msg="Vite + Vue" /> -->
   <div>
-    <div id="paper" data-testid="paper"></div>
-    <div id="stencil" data-testid="stencil"></div>
-    <div id="toolbar" data-testid="toolbar"></div>
-    <div id="inspector" data-testid="inspector"></div>
+    <div ref="paper" data-testid="paper"></div>
+    <div ref="stencil" data-testid="stencil"></div>
+    <div ref="toolbar" data-testid="toolbar"></div>
+    <div ref="inspector" data-testid="inspector"></div>
   </div>
 </template>
 
